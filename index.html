@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Ranking Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">Palette Atelier <span>Color Ranking Showcase</span></div>
+      <div class="header-controls">
+        <div class="header-meta">30 Identities</div>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" title="Light mode">
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
+          </svg>
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"></path>
+          </svg>
+          <span class="theme-toggle-label">Light</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Color Ranking Showcase</h1>
+    <p>Color Ranking Showcase Explore a curated study of brand identity that explores how primary, secondary, and accent proportions shape distinctive digital experiences.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-value">30</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">90</div>
+        <div class="stat-label">Color Systems</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="projects" id="projects"></main>
+  <script src="script.js" type="text/javascript"></script>
+</body>
+</html>

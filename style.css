@@ -1,0 +1,2032 @@
+    :root {
+      --bg: #0c0c0d;
+      --surface: #141416;
+      --surface-elevated: #1a1a1d;
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.14);
+      --text: #f5f5f4;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,0.5);
+      --content-max: 1280px;
+    }
+
+    /* Light mode keeps the same layout and components, only changing the visual theme. */
+    body.light-mode {
+      --bg: #f4f3f0;
+      --surface: #ffffff;
+      --surface-elevated: #faf9f7;
+      --border: rgba(20,20,22,0.10);
+      --border-strong: rgba(20,20,22,0.17);
+      --text: #171719;
+      --text-muted: #66666d;
+      --text-dim: #8a8a90;
+      --shadow: 0 4px 24px rgba(20,20,22,0.08);
+      --shadow-lg: 0 12px 48px rgba(20,20,22,0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12,12,13,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+    }
+
+    .header-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+
+    .logo span {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+    }
+
+    .header-meta {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .theme-toggle {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface-elevated);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      cursor: pointer;
+      transition: border-color .25s ease, background .25s ease, transform .2s ease;
+      padding: 0;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle:focus-visible,
+    .project-edit-actions button:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    .theme-icon {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .theme-icon-moon { display: none; }
+    .theme-toggle-label { display: none; }
+
+    body.light-mode .theme-icon-sun { display: none; }
+    body.light-mode .theme-icon-moon { display: block; }
+
+    .project-card {
+      position: relative;
+    }
+
+    .project-edit-actions {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 5;
+    }
+
+    .project-edit-actions button {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface-elevated);
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: all .2s ease;
+    }
+
+    .project-edit-actions button:hover {
+      color: var(--text);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+
+    .project-edit-actions .project-save.saved {
+      color: #3ca66b;
+    }
+
+    .project-edit-actions svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .project-brand[contenteditable="true"],
+    .project-desc[contenteditable="true"] {
+      outline: none;
+      border-radius: 5px;
+      transition: background .2s ease, box-shadow .2s ease;
+    }
+
+    .project-brand[contenteditable="true"]:focus,
+    .project-desc[contenteditable="true"]:focus {
+      background: var(--surface-elevated);
+      box-shadow: 0 0 0 1px var(--border-strong);
+    }
+
+    .project-brand[contenteditable="true"]:empty::before,
+    .project-desc[contenteditable="true"]:empty::before {
+      content: attr(data-placeholder);
+      color: var(--text-dim);
+    }
+
+    body.light-mode .site-header {
+      background: rgba(244,243,240,0.86);
+    }
+
+    body.light-mode .hero h1 {
+      background: linear-gradient(135deg, #171719 0%, #77777e 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    /* Hero */
+    .hero {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 3.5rem 2rem 2.75rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.25rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #f5f5f4 0%, #a1a1aa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      max-width: 540px;
+      margin: 0 auto;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      margin-top: 2.25rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 0.25rem;
+    }
+
+    /* Projects Container */
+    .projects {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0.75rem 1.75rem 5.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.25rem;
+    }
+
+    /* Project Card */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.85rem 1.85rem 1.75rem;
+      box-shadow: var(--shadow);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .project-number {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      min-width: 2rem;
+    }
+
+    .project-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--text);
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-left: 3rem;
+      margin-bottom: 1.4rem;
+      font-weight: 300;
+    }
+
+    /* Main Layout: color group + preview group */
+    .project-body {
+      display: flex;
+      align-items: stretch;
+      gap: 1.75rem;
+    }
+
+    .color-group {
+      display: flex;
+      gap: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* Color Cards */
+    .color-card {
+      width: 148px;
+      min-height: 268px;
+      background: var(--color-card-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.28s ease,
+                  border-color 0.28s ease;
+    }
+
+    .color-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--color-card-shadow);
+      border-color: var(--border-strong);
+    }
+
+    .color-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 1;
+    }
+
+    .color-content {
+      position: relative;
+      z-index: 2;
+      padding: 0.95rem 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+      /* subtle translucent plate for readability without heavy overlay */
+      background: linear-gradient(to top, rgba(8,8,10,0.55) 0%, rgba(8,8,10,0.18) 70%, transparent 100%);
+    }
+
+    .color-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.92;
+    }
+
+    .color-hex {
+      font-family: 'Inter', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .color-percent {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-top: 0.2rem;
+      line-height: 1.1;
+    }
+
+    .color-role {
+      font-size: 0.68rem;
+      opacity: 0.78;
+      margin-top: 0.12rem;
+      font-weight: 400;
+    }
+
+    /* Browser Preview — compact, balanced */
+    .preview-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      max-width: 665px;
+      height: 268px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #0a0a0b;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .preview-wrapper:hover {
+      border-color: rgba(255,255,255,0.16);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+    }
+
+    .browser-chrome {
+      height: 32px;
+      background: #1c1c1e;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 7px;
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .browser-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .browser-dot.red { background: #ff5f57; }
+    .browser-dot.yellow { background: #febc2e; }
+    .browser-dot.green { background: #28c840; }
+
+    .browser-url {
+      flex: 1;
+      text-align: center;
+      font-size: 0.65rem;
+      color: #8e8e93;
+      background: #2c2c2e;
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin: 0 12px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .preview-viewport {
+      height: calc(100% - 32px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preview-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transition: transform 3.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+      will-change: transform;
+    }
+
+    /* Mini Website Sections — denser, tighter */
+    .mini-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .mini-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .mini-nav-links {
+      display: flex;
+      gap: 11px;
+      font-size: 0.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.72;
+    }
+
+    .mini-hero {
+      padding: 22px 12px 24px;
+      text-align: center;
+      position: relative;
+      min-height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mini-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 5px;
+      line-height: 1.2;
+    }
+
+    .mini-hero-sub {
+      font-size: 0.55rem;
+      letter-spacing: 0.05em;
+      opacity: 0.78;
+      margin-bottom: 10px;
+      max-width: 180px;
+    }
+
+    .mini-btn {
+      display: inline-block;
+      padding: 5px 12px;
+      font-size: 0.5rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid currentColor;
+      background: transparent;
+      cursor: default;
+    }
+
+    .mini-section {
+      padding: 14px 12px;
+    }
+
+    .mini-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .mini-card {
+      aspect-ratio: 1;
+      border-radius: 3px;
+      display: flex;
+      align-items: flex-end;
+      padding: 5px;
+      font-size: 0.45rem;
+      letter-spacing: 0.04em;
+    }
+
+    .mini-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .mini-img {
+      flex: 1;
+      height: 56px;
+      border-radius: 3px;
+    }
+
+    .mini-text-block {
+      flex: 1;
+      font-size: 0.5rem;
+      line-height: 1.45;
+      opacity: 0.82;
+    }
+
+    .mini-feature {
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .mini-feature-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.78rem;
+      margin-bottom: 3px;
+    }
+
+    .mini-feature-text {
+      font-size: 0.5rem;
+      opacity: 0.72;
+      max-width: 200px;
+      margin: 0 auto;
+    }
+
+    .mini-footer {
+      padding: 14px 12px 18px;
+      text-align: center;
+      font-size: 0.45rem;
+      letter-spacing: 0.05em;
+      opacity: 0.65;
+    }
+
+    .mini-footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .project-body {
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .color-group {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .color-card {
+        flex: 1;
+        width: auto;
+        min-height: 200px;
+      }
+
+      .preview-wrapper {
+        max-width: none;
+        width: 100%;
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .site-header {
+        padding: 1rem 1.25rem;
+      }
+
+      .hero {
+        padding: 2.25rem 1.25rem 1.75rem;
+      }
+
+      .hero-stats {
+        gap: 2.5rem;
+      }
+
+      .projects {
+        padding: 0.5rem 1rem 4rem;
+        gap: 1.6rem;
+      }
+
+      .project-card {
+        padding: 1.25rem;
+      }
+
+      .project-edit-actions {
+        top: 0.8rem;
+        right: 0.8rem;
+      }
+
+      .project-header {
+        padding-right: 2.4rem;
+      }
+
+      .project-desc {
+        margin-left: 0;
+        margin-top: 0.25rem;
+      }
+
+      .project-body {
+        gap: 1rem;
+      }
+
+      .color-group {
+        gap: 0.6rem;
+      }
+
+      .color-card {
+        min-height: 160px;
+      }
+
+      .preview-wrapper {
+        height: 280px;
+      }
+
+      .project-header {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .color-card {
+        min-height: 140px;
+      }
+
+      .color-percent {
+        font-size: 1.15rem;
+      }
+
+      .color-hex {
+        font-size: 0.68rem;
+      }
+
+      .color-content {
+        padding: 0.7rem 0.65rem 0.8rem;
+      }
+    }
+
+    /* Utility for contrast */
+    .text-light { color: #f5f5f4 !important; }
+    .text-dark { color: #f5f5f4 !important; }
+/* =========================================================
+   NEW INTERACTIVE PALETTE LAYER
+   - Liquid color movement inside the three palette cards
+   - Click-to-edit custom color picker
+   - Swipeable multi-page website preview
+   ========================================================= */
+
+.color-card {
+  border: 1px solid var(--border);
+  color: inherit;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.color-card:focus-visible,
+.preview-wrapper:focus-visible,
+.preview-dot:focus-visible,
+.picker-close:focus-visible,
+.picker-hex-field input:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.55);
+  outline-offset: 3px;
+}
+
+.color-fill {
+  background: var(--liquid-color) !important;
+  overflow: hidden;
+}
+
+.color-fill::before,
+.color-fill::after {
+  content: "";
+  position: absolute;
+  width: 135%;
+  height: 115%;
+  left: -18%;
+  border-radius: 48% 52% 42% 58%;
+  pointer-events: none;
+  filter: blur(7px);
+}
+
+.color-fill::before {
+  top: -45%;
+  background: rgba(255,255,255,0.14);
+  animation: liquidWaveOne 8.5s ease-in-out infinite alternate;
+  transform-origin: 50% 50%;
+}
+
+.color-fill::after {
+  top: -30%;
+  left: -8%;
+  background: rgba(0,0,0,0.13);
+  animation: liquidWaveTwo 11s ease-in-out infinite alternate;
+  transform-origin: 50% 50%;
+}
+
+@keyframes liquidWaveOne {
+  0% { transform: translate3d(-5%, 4%, 0) rotate(-4deg) scale(1.02); border-radius: 44% 56% 58% 42%; }
+  50% { transform: translate3d(7%, -2%, 0) rotate(4deg) scale(1.07); border-radius: 58% 42% 45% 55%; }
+  100% { transform: translate3d(-2%, 6%, 0) rotate(-2deg) scale(1.03); border-radius: 52% 48% 38% 62%; }
+}
+
+@keyframes liquidWaveTwo {
+  0% { transform: translate3d(5%, 0, 0) rotate(5deg) scale(1.05); border-radius: 60% 40% 48% 52%; }
+  50% { transform: translate3d(-8%, 5%, 0) rotate(-5deg) scale(1.1); border-radius: 42% 58% 55% 45%; }
+  100% { transform: translate3d(3%, -3%, 0) rotate(3deg) scale(1.04); border-radius: 55% 45% 40% 60%; }
+}
+
+.preview-stage {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  max-width: 665px;
+}
+
+.preview-wrapper {
+  max-width: none;
+  width: 100%;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.preview-wrapper.is-dragging {
+  cursor: grabbing;
+}
+
+.preview-wrapper.is-dragging .preview-track {
+  transition: none !important;
+}
+
+.preview-viewport {
+  overscroll-behavior: contain;
+}
+
+.preview-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform .65s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+}
+
+.template-page {
+  flex: 0 0 100%;
+  min-width: 100%;
+  height: max-content;
+  min-height: 100%;
+}
+
+.swipe-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 9px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  background: rgba(8,8,10,0.34);
+  backdrop-filter: blur(8px);
+  color: rgba(255,255,255,0.72);
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.preview-wrapper:hover .swipe-hint,
+.preview-wrapper:focus-visible .swipe-hint {
+  opacity: 1;
+}
+
+.preview-meta {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3px;
+  color: var(--text-dim);
+}
+
+.preview-page-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.61rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.preview-page-number {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.preview-page-divider {
+  opacity: .35;
+}
+
+.preview-page-title {
+  margin-left: 6px;
+  color: var(--text-muted);
+}
+
+.preview-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.preview-dot {
+  width: 5px;
+  height: 5px;
+  border: 0;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.22);
+  cursor: pointer;
+  transition: width .25s ease, border-radius .25s ease, background .25s ease, transform .25s ease;
+}
+
+.preview-dot:hover {
+  transform: scale(1.35);
+  background: rgba(255,255,255,0.5);
+}
+
+.preview-dot.active {
+  width: 18px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.78);
+}
+
+/* More realistic miniature sites */
+.mini-kicker {
+  font-size: 0.42rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: .7;
+  margin-bottom: 7px;
+}
+
+.mini-hero-sub {
+  max-width: 240px;
+}
+
+.mini-section-title.align-left {
+  text-align: left;
+}
+
+.mini-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  padding: 12px;
+  align-items: center;
+}
+
+.mini-split .mini-btn {
+  margin-top: 8px;
+}
+
+.mini-img.tall {
+  height: 72px;
+}
+
+.product-card {
+  position: relative;
+  overflow: hidden;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.product-card::before {
+  content: "";
+  position: absolute;
+  width: 38px;
+  height: 52px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%) rotate(12deg);
+  border: 1px solid currentColor;
+  border-radius: 48% 52% 45% 55%;
+  opacity: .25;
+}
+
+.product-card span,
+.product-card b {
+  position: relative;
+  z-index: 1;
+}
+
+.product-card b {
+  font-size: .42rem;
+  font-weight: 500;
+}
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  padding: 12px;
+  gap: 6px;
+  text-align: center;
+}
+
+.mini-stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mini-stats b {
+  font-family: 'Playfair Display', serif;
+  font-size: .9rem;
+}
+
+.mini-stats span {
+  font-size: .42rem;
+  opacity: .68;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.menu-list {
+  display: grid;
+  gap: 7px;
+}
+
+.menu-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+  font-size: .5rem;
+  opacity: .82;
+}
+
+.menu-list b {
+  font-weight: 500;
+}
+
+.dashboard-strip {
+  padding: 10px 12px 13px;
+}
+
+.dashboard-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: .48rem;
+  margin-bottom: 8px;
+  opacity: .85;
+}
+
+.dashboard-top b {
+  font-weight: 600;
+}
+
+.chart {
+  height: 50px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.chart i {
+  flex: 1;
+  display: block;
+  border-radius: 3px 3px 1px 1px;
+  background: transparent;
+  border: 1px solid currentColor;
+  opacity: .55;
+}
+
+.chart i:nth-child(1) { height: 28%; }
+.chart i:nth-child(2) { height: 42%; }
+.chart i:nth-child(3) { height: 36%; }
+.chart i:nth-child(4) { height: 63%; }
+.chart i:nth-child(5) { height: 55%; }
+.chart i:nth-child(6) { height: 78%; }
+.chart i:nth-child(7) { height: 92%; }
+
+/* Custom dark color picker */
+.color-picker {
+  position: fixed;
+  z-index: 9999;
+  width: 276px;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  background: rgba(20,20,22,.97);
+  box-shadow: 0 20px 60px rgba(0,0,0,.55), 0 4px 18px rgba(0,0,0,.35);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-5px) scale(.98);
+  transform-origin: top left;
+  transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+}
+
+.color-picker.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.picker-header,
+.picker-preview-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.picker-header {
+  margin-bottom: 10px;
+}
+
+.picker-header strong {
+  display: block;
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.picker-kicker,
+.picker-preview-row span {
+  display: block;
+  font-size: .48rem;
+  letter-spacing: .13em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.picker-close {
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 7px;
+  background: rgba(255,255,255,.04);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.picker-close:hover {
+  background: rgba(255,255,255,.08);
+  color: var(--text);
+}
+
+.picker-controls {
+  display: grid;
+  grid-template-columns: 1fr 15px;
+  gap: 10px;
+}
+
+.picker-sv,
+.picker-hue {
+  position: relative;
+  overflow: hidden;
+  cursor: crosshair;
+  border-radius: 9px;
+}
+
+.picker-sv {
+  height: 190px;
+  background: linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,#f00);
+}
+
+.picker-hue {
+  height: 190px;
+  background: linear-gradient(to bottom,#ff0000 0%,#ffff00 16.66%,#00ff00 33.33%,#00ffff 50%,#0000ff 66.66%,#ff00ff 83.33%,#ff0000 100%);
+}
+
+.picker-cursor,
+.picker-hue-cursor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.picker-cursor {
+  width: 15px;
+  height: 15px;
+  left: 0;
+  top: 0;
+  transform: translate(-50%,-50%);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.6), 0 2px 5px rgba(0,0,0,.4);
+}
+
+.picker-hue-cursor {
+  left: -3px;
+  right: -3px;
+  top: 0;
+  height: 4px;
+  transform: translateY(-50%);
+  border: 1px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.6);
+}
+
+.picker-preview-row {
+  padding: 11px 0 9px;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.picker-preview-swatch {
+  width: 36px;
+  height: 30px;
+  border-radius: 7px;
+  border: 1px solid rgba(255,255,255,.13);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.12);
+}
+
+.picker-preview-row strong {
+  font-family: Inter, monospace;
+  font-size: .72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.picker-hex-field {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 10px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 8px;
+  background: rgba(0,0,0,.2);
+  color: var(--text-dim);
+  font-family: Inter, monospace;
+  font-size: .72rem;
+}
+
+.picker-hex-field input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  letter-spacing: .03em;
+}
+
+@media (max-width: 1100px) {
+  .preview-stage {
+    max-width: none;
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .preview-meta {
+    height: 30px;
+  }
+
+  .swipe-hint {
+    opacity: .72;
+  }
+
+  .color-picker {
+    width: min(276px, calc(100vw - 28px));
+  }
+
+  .picker-sv,
+  .picker-hue {
+    height: 170px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-fill::before,
+  .color-fill::after {
+    animation: none;
+  }
+
+  .preview-track,
+  .preview-dot,
+  .color-picker {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   LIQUID PALETTE V2
+   The wave is the surface of the colored area itself.
+   It stays correct for every percentage, including 10–20%.
+   ========================================================= */
+.color-card {
+  isolation: isolate;
+}
+
+.color-fill {
+  z-index: 1;
+  overflow: visible;
+  background: var(--liquid-color) !important;
+  border-radius: 0 0 10px 10px;
+  transition: height .6s cubic-bezier(.22,1,.36,1), background-color .25s ease;
+}
+
+/* Remove the old floating blobs/overlays. */
+.color-fill::before,
+.color-fill::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  filter: none;
+}
+
+/* A very shallow moving water surface. It sits only on the top edge. */
+.color-fill::before {
+  width: 155%;
+  height: 24px;
+  left: -27%;
+  top: -12px;
+  border-radius: 50%;
+  background: var(--liquid-color);
+  box-shadow: 0 -1px 0 rgba(255,255,255,.08) inset;
+  animation: liquidSurface 9s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+/* Tiny soft highlight on the surface, not a second shape over the color. */
+.color-fill::after {
+  width: 145%;
+  height: 15px;
+  left: -22%;
+  top: -9px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  opacity: .7;
+  animation: liquidHighlight 12s ease-in-out infinite;
+}
+
+@keyframes liquidSurface {
+  0%   { transform: translateX(-7%) rotate(-1.8deg) scaleY(.92); }
+  25%  { transform: translateX(3%) rotate(1.2deg) scaleY(1.04); }
+  50%  { transform: translateX(8%) rotate(-.8deg) scaleY(.95); }
+  75%  { transform: translateX(-2%) rotate(1.5deg) scaleY(1.02); }
+  100% { transform: translateX(-7%) rotate(-1.8deg) scaleY(.92); }
+}
+
+@keyframes liquidHighlight {
+  0%   { transform: translateX(9%) scaleX(.92); opacity: .45; }
+  50%  { transform: translateX(-7%) scaleX(1.04); opacity: .72; }
+  100% { transform: translateX(9%) scaleX(.92); opacity: .45; }
+}
+
+/* Reset control on every palette card. */
+.color-reset {
+  position: absolute;
+  z-index: 5;
+  top: 9px;
+  right: 9px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 7px;
+  background: rgba(8,8,10,.24);
+  color: rgba(255,255,255,.82);
+  font-size: .86rem;
+  line-height: 1;
+  opacity: .55;
+  backdrop-filter: blur(7px);
+  transition: opacity .2s ease, background .2s ease, transform .2s ease;
+}
+
+.color-card:hover .color-reset,
+.color-reset:focus-visible {
+  opacity: 1;
+}
+
+.color-reset:hover {
+  background: rgba(8,8,10,.42);
+  transform: rotate(-18deg) scale(1.04);
+}
+
+/* =========================================================
+   SHORTER, MORE REALISTIC WEBSITE PREVIEW
+   ========================================================= */
+.mini-site {
+  min-height: 100%;
+  transition: transform 2.4s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+}
+
+.preview-wrapper:hover .template-page.is-active .mini-site,
+.preview-wrapper:focus-visible .template-page.is-active .mini-site {
+  transform: translateY(-68px);
+}
+
+.preview-wrapper.is-dragging .template-page.is-active .mini-site {
+  transition: none;
+}
+
+/* Corporate preview should read immediately as a business/company site. */
+.template-corporate .mini-hero {
+  min-height: 132px;
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 14px;
+  text-align: left;
+  align-items: center;
+  padding: 20px 16px;
+}
+
+.template-corporate .mini-hero > .mini-kicker,
+.template-corporate .mini-hero > .mini-hero-title,
+.template-corporate .mini-hero > .mini-hero-sub,
+.template-corporate .mini-hero > .mini-btn {
+  grid-column: 1;
+}
+
+.template-corporate .mini-hero::after {
+  content: "01\A 24\A 98%";
+  white-space: pre;
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  justify-self: stretch;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  font-family: 'Playfair Display', serif;
+  font-size: .72rem;
+  line-height: 2.1;
+  opacity: .45;
+}
+
+.template-corporate .mini-hero-title {
+  max-width: 175px;
+  font-size: 1.08rem;
+  margin-bottom: 0;
+}
+
+.template-corporate .mini-hero-sub {
+  max-width: 190px;
+  margin-bottom: 0;
+}
+
+.template-corporate .corporate-grid .mini-card {
+  aspect-ratio: 1.45;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.template-corporate .mini-split {
+  min-height: 90px;
+}
+
+/* The preview is intentionally a compact window into a longer page. */
+.preview-viewport {
+  scrollbar-width: none;
+}
+
+.preview-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   PICKER SAVE CONTROL
+   ========================================================= */
+.picker-hex-value {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.picker-save {
+  margin-left: auto;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 7px;
+  background: rgba(255,255,255,.05);
+  color: var(--text-muted);
+  font: 500 .62rem Inter, sans-serif;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.picker-save:hover {
+  background: rgba(255,255,255,.09);
+  color: var(--text);
+  border-color: rgba(255,255,255,.2);
+}
+
+.picker-save.saved {
+  color: #d9f7df;
+  border-color: rgba(100,220,130,.28);
+  background: rgba(100,220,130,.08);
+}
+
+@media (max-width: 700px) {
+  .preview-wrapper:hover .template-page.is-active .mini-site,
+  .preview-wrapper:focus-visible .template-page.is-active .mini-site {
+    transform: translateY(-54px);
+  }
+
+  .template-corporate .mini-hero {
+    grid-template-columns: 1fr .6fr;
+    gap: 9px;
+    padding: 16px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-fill::before,
+  .color-fill::after {
+    animation: none;
+  }
+
+  .mini-site {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   FINAL POLISH — NATURAL LIQUID + FLOATING PICKER + PREVIEW SAVE
+   ========================================================= */
+.color-fill {
+  background: var(--liquid-color) !important;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+/* The wave is the edge of the liquid itself. No second color is painted over it. */
+.color-fill::before {
+  content: "" !important;
+  position: absolute;
+  z-index: 0;
+  left: -18%;
+  top: -10px;
+  width: 136%;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--liquid-color) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  animation: naturalLiquidSurface 4.8s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+.color-fill::after {
+  content: none !important;
+  display: none !important;
+}
+
+@keyframes naturalLiquidSurface {
+  0%   { transform: translateX(-4%) rotate(-1.1deg) scaleX(1.02) scaleY(.82); }
+  25%  { transform: translateX(2%) rotate(.8deg) scaleX(1.06) scaleY(1.02); }
+  50%  { transform: translateX(5%) rotate(-.6deg) scaleX(1.02) scaleY(.88); }
+  75%  { transform: translateX(-1%) rotate(1deg) scaleX(1.07) scaleY(1); }
+  100% { transform: translateX(-4%) rotate(-1.1deg) scaleX(1.02) scaleY(.82); }
+}
+
+/* Small controls live inside the browser chrome. */
+.browser-chrome .browser-url { margin-right: 5px; }
+.preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+.preview-action {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 7px;
+  background: rgba(255,255,255,.045);
+  color: #a6a6aa;
+  font: 500 .72rem Inter, sans-serif;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, transform .18s ease, border-color .18s ease;
+}
+.preview-action:hover,
+.preview-action:focus-visible {
+  background: rgba(255,255,255,.1);
+  color: #fff;
+  border-color: rgba(255,255,255,.18);
+}
+.preview-action:active { transform: scale(.94); }
+.preview-action.saved { color: #d9f7df; border-color: rgba(100,220,130,.28); }
+
+/* Two seconds: a quick but readable tour of the compact preview. */
+.mini-site {
+  transition: transform 2s linear;
+}
+.preview-wrapper:hover .template-page.is-active .mini-site,
+.preview-wrapper:focus-visible .template-page.is-active .mini-site {
+  transform: translateY(calc(-1 * var(--preview-scroll, 110px)));
+}
+
+.color-picker.is-dragging {
+  cursor: grabbing;
+  transition: none !important;
+}
+.picker-header {
+  cursor: grab;
+  touch-action: none;
+}
+.color-picker.is-dragging .picker-header { cursor: grabbing; }
+
+@media (max-width: 700px) {
+  .preview-action { width: 30px; height: 30px; }
+  .preview-actions { gap: 5px; }
+  .mini-site { transition-duration: 2s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-fill::before { animation: none !important; }
+  .mini-site { transition: none !important; }
+}
+
+
+/* =========================================================
+   THEME REFINEMENT
+   Light mode is a complete visual system, not only a white background.
+   Palette colors themselves remain unchanged; surrounding surfaces,
+   borders, shadows and controls adapt to the selected theme.
+   ========================================================= */
+
+:root {
+  --card-shadow: 0 4px 24px rgba(0,0,0,.40);
+  --card-shadow-hover: 0 12px 48px rgba(0,0,0,.50);
+  --color-card-surface: #111113;
+  --color-card-shadow: 0 8px 28px rgba(0,0,0,.45);
+  --preview-surface: #0a0a0b;
+  --browser-surface: #1c1c1e;
+  --browser-url-surface: #2c2c2e;
+  --control-bg: rgba(255,255,255,.045);
+  --control-hover: rgba(255,255,255,.10);
+}
+
+body.light-mode {
+  --bg: #f4f3f0;
+  --surface: #ffffff;
+  --surface-elevated: #faf9f7;
+  --border: rgba(35,38,42,.10);
+  --border-strong: rgba(35,38,42,.18);
+  --text: #17191c;
+  --text-muted: #646970;
+  --text-dim: #858a91;
+  --shadow: 0 4px 24px rgba(35,38,42,.075), 0 1px 3px rgba(35,38,42,.04);
+  --shadow-lg: 0 14px 46px rgba(35,38,42,.12), 0 3px 10px rgba(35,38,42,.05);
+  --card-shadow: 0 5px 22px rgba(35,38,42,.075), 0 1px 3px rgba(35,38,42,.035);
+  --card-shadow-hover: 0 14px 42px rgba(35,38,42,.12), 0 3px 10px rgba(35,38,42,.05);
+  --color-card-surface: #eef0f2;
+  --color-card-shadow: 0 9px 28px rgba(35,38,42,.10), 0 2px 7px rgba(35,38,42,.04);
+  --preview-surface: #eef0f2;
+  --browser-surface: #ffffff;
+  --browser-url-surface: #f0f1f3;
+  --control-bg: rgba(20,24,28,.045);
+  --control-hover: rgba(20,24,28,.085);
+}
+
+/* Navbar becomes a soft glass surface in Light mode. */
+body.light-mode .site-header {
+  background: rgba(255,255,255,.82);
+  box-shadow: 0 1px 0 rgba(30,34,38,.05), 0 8px 26px rgba(30,34,38,.045);
+}
+
+/* Project cards follow the selected theme. */
+body.light-mode .project-card {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: var(--card-shadow);
+}
+body.light-mode .project-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Palette boxes use a light surface around their actual liquid color. */
+.color-card {
+  background: var(--color-card-surface);
+  box-shadow: none;
+}
+.color-card:hover {
+  box-shadow: var(--color-card-shadow);
+}
+body.light-mode .color-card {
+  border-color: rgba(35,38,42,.11);
+}
+body.light-mode .color-content {
+  background: linear-gradient(to top, rgba(255,255,255,.68) 0%, rgba(255,255,255,.20) 72%, transparent 100%);
+}
+body.light-mode .color-reset {
+  border-color: rgba(30,34,38,.14);
+  background: rgba(255,255,255,.48);
+  color: rgba(30,34,38,.72);
+  box-shadow: 0 2px 8px rgba(30,34,38,.06);
+}
+body.light-mode .color-reset:hover {
+  background: rgba(255,255,255,.78);
+}
+
+/* Browser preview chrome also changes with the selected theme. */
+.preview-wrapper {
+  background: var(--preview-surface);
+  box-shadow: var(--shadow);
+}
+.preview-wrapper:hover {
+  box-shadow: var(--shadow-lg);
+}
+.browser-chrome {
+  background: var(--browser-surface);
+  border-bottom-color: var(--border);
+}
+.browser-url {
+  background: var(--browser-url-surface);
+  color: var(--text-dim);
+}
+body.light-mode .browser-url {
+  border: 1px solid rgba(30,34,38,.07);
+}
+
+/* Preview controls inherit the theme instead of staying dark. */
+.preview-action {
+  border-color: var(--border);
+  background: var(--control-bg);
+  color: var(--text-muted);
+}
+.preview-action:hover,
+.preview-action:focus-visible {
+  background: var(--control-hover);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+/* Text editing controls keep their compact form while following the theme. */
+.project-edit-actions button {
+  background: var(--surface-elevated);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+.project-edit-actions button:hover {
+  background: var(--surface);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+.project-edit-actions .project-reset {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+}
+
+.project-edit-actions .project-reset svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.project-edit-actions .project-reset:hover {
+  transform: translateY(-1px);
+}
+
+/* Light-mode color picker: same component, fully adapted surface/shadow. */
+body.light-mode .color-picker {
+  background: rgba(255,255,255,.97);
+  border-color: rgba(30,34,38,.11);
+  box-shadow: 0 22px 60px rgba(30,34,38,.14), 0 5px 18px rgba(30,34,38,.07);
+}
+body.light-mode .picker-close,
+body.light-mode .picker-hex-field,
+body.light-mode .picker-preview-swatch {
+  border-color: var(--border);
+}
+body.light-mode .picker-hex-field {
+  background: var(--surface-elevated);
+}
+
+/* Make theme switching feel intentional rather than instantaneous. */
+body,
+.site-header,
+.project-card,
+.color-card,
+.preview-wrapper,
+.browser-chrome,
+.browser-url,
+.project-edit-actions button,
+.preview-action,
+.color-picker {
+  transition-property: background-color, background, border-color, box-shadow, color;
+  transition-duration: .28s;
+  transition-timing-function: ease;
+}
+
+/* The palette itself remains the user's chosen color; only its environment changes. */
+.color-fill { transition: height .6s cubic-bezier(.22,1,.36,1); }
+
+/* Theme switch: small premium pill with a clear state. */
+.theme-toggle {
+  width: 38px;
+  height: 34px;
+  border-radius: 11px;
+  background: var(--surface-elevated);
+  border-color: var(--border);
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+body.light-mode .theme-toggle {
+  box-shadow: 0 2px 10px rgba(30,34,38,.07);
+}
+
+
+/* =========================================================
+   FINAL LIGHT THEME PASS
+   The palette values themselves never change. Only the visual
+   environment around them adapts to the selected theme.
+   ========================================================= */
+
+:root {
+  --color-card-surface: #111113;
+  --color-card-border: rgba(255,255,255,.08);
+  --color-card-shadow: 0 8px 28px rgba(0,0,0,.45);
+  --color-card-overlay-top: rgba(8,8,10,.55);
+  --color-card-overlay-mid: rgba(8,8,10,.18);
+  --color-liquid-highlight: rgba(255,255,255,.14);
+  --color-liquid-shadow: rgba(0,0,0,.13);
+  --picker-bg: rgba(20,20,22,.97);
+  --picker-border: rgba(255,255,255,.12);
+  --picker-shadow: 0 20px 60px rgba(0,0,0,.55), 0 4px 18px rgba(0,0,0,.35);
+  --picker-button-bg: rgba(255,255,255,.05);
+  --picker-button-hover: rgba(255,255,255,.09);
+  --picker-button-border: rgba(255,255,255,.12);
+  --picker-save-active: #d9f7df;
+  --picker-save-active-bg: rgba(100,220,130,.08);
+  --picker-save-active-border: rgba(100,220,130,.28);
+}
+
+body.light-mode {
+  /* Warm-neutral surfaces keep the existing palette colors prominent. */
+  --bg: #f2f1ed;
+  --surface: #fbfaf7;
+  --surface-elevated: #ffffff;
+  --border: rgba(30,34,38,.10);
+  --border-strong: rgba(30,34,38,.18);
+  --text: #181a1d;
+  --text-muted: #62676e;
+  --text-dim: #858b92;
+  --shadow: 0 5px 24px rgba(35,39,44,.075), 0 1px 3px rgba(35,39,44,.035);
+  --shadow-lg: 0 15px 46px rgba(35,39,44,.12), 0 3px 10px rgba(35,39,44,.045);
+
+  --color-card-surface: #e7e9e7;
+  --color-card-border: rgba(30,34,38,.12);
+  --color-card-shadow: 0 8px 26px rgba(35,39,44,.11), 0 2px 7px rgba(35,39,44,.045);
+  --color-card-overlay-top: rgba(20,23,25,.34);
+  --color-card-overlay-mid: rgba(20,23,25,.10);
+  --color-liquid-highlight: rgba(255,255,255,.20);
+  --color-liquid-shadow: rgba(20,23,25,.10);
+
+  --preview-surface: #e9ebe9;
+  --browser-surface: #ffffff;
+  --browser-url-surface: #f1f2f0;
+  --control-bg: rgba(20,24,28,.045);
+  --control-hover: rgba(20,24,28,.085);
+
+  --picker-bg: rgba(255,255,255,.98);
+  --picker-border: rgba(30,34,38,.11);
+  --picker-shadow: 0 22px 60px rgba(30,34,38,.15), 0 5px 18px rgba(30,34,38,.07);
+  --picker-button-bg: rgba(20,24,28,.045);
+  --picker-button-hover: rgba(20,24,28,.085);
+  --picker-button-border: rgba(30,34,38,.10);
+  --picker-save-active: #496b57;
+  --picker-save-active-bg: rgba(73,107,87,.10);
+  --picker-save-active-border: rgba(73,107,87,.25);
+}
+
+body.light-mode .color-card {
+  background: var(--color-card-surface);
+  border-color: var(--color-card-border);
+  box-shadow: var(--color-card-shadow);
+}
+
+body.light-mode .color-card:hover {
+  border-color: rgba(30,34,38,.20);
+  box-shadow: 0 13px 34px rgba(35,39,44,.14), 0 2px 8px rgba(35,39,44,.055);
+}
+
+/* White and very pale palette values now have a clearly visible surface. */
+body.light-mode .color-fill {
+  box-shadow: inset 0 1px 0 rgba(30,34,38,.10);
+}
+
+body.light-mode .color-content {
+  background: linear-gradient(to top,
+    var(--color-card-overlay-top) 0%,
+    var(--color-card-overlay-mid) 70%,
+    transparent 100%);
+}
+
+body.light-mode .color-fill::before {
+  background: var(--color-liquid-highlight);
+}
+
+body.light-mode .color-fill::after {
+  background: var(--color-liquid-shadow);
+}
+
+/* Keep the palette itself untouched, but give white fills a little definition. */
+body.light-mode .color-card[style*="#FFFFFF"] .color-fill,
+body.light-mode .color-card[style*="#ffffff"] .color-fill,
+body.light-mode .color-card[style*="#F5F5F0"] .color-fill,
+body.light-mode .color-card[style*="#F5F0EB"] .color-fill {
+  box-shadow: inset 0 0 0 1px rgba(30,34,38,.10);
+}
+
+/* Reset is always a compact arrow in both themes. */
+.project-edit-actions .project-reset {
+  min-width: 28px;
+}
+
+/* Picker controls use the active theme instead of fixed dark styling. */
+.color-picker {
+  background: var(--picker-bg);
+  border-color: var(--picker-border);
+  box-shadow: var(--picker-shadow);
+}
+
+.picker-save {
+  border-color: var(--picker-button-border);
+  background: var(--picker-button-bg);
+}
+
+.picker-save:hover {
+  background: var(--picker-button-hover);
+  border-color: var(--border-strong);
+}
+
+.picker-save.saved {
+  color: var(--picker-save-active);
+  border-color: var(--picker-save-active-border);
+  background: var(--picker-save-active-bg);
+}
+
+/* Never leave the previous Saved state on the next opening. */
+.picker-save:not(.saved) {
+  color: var(--text-muted);
+}
+
+body.light-mode .picker-close,
+body.light-mode .picker-hex-field {
+  border-color: var(--border);
+  background: var(--surface-elevated);
+}
+
+body.light-mode .picker-close:hover {
+  background: var(--control-hover);
+}
+
+/* Project Save also returns to its normal theme color after feedback. */
+.project-edit-actions .project-save.saved {
+  color: var(--text-muted);
+}
+
+/* Light-mode preview chrome: preserve the actual palette colors inside the preview. */
+body.light-mode .preview-wrapper {
+  background: var(--preview-surface);
+  border-color: var(--border);
+  box-shadow: var(--shadow);
+}
+
+body.light-mode .browser-chrome {
+  background: var(--browser-surface);
+  border-bottom-color: var(--border);
+}
+
+body.light-mode .browser-url {
+  background: var(--browser-url-surface);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+body.light-mode .preview-dot {
+  background: rgba(30,34,38,.18);
+}
+
+body.light-mode .preview-dot:hover {
+  background: rgba(30,34,38,.40);
+}
+
+body.light-mode .preview-dot.active {
+  background: rgba(30,34,38,.65);
+}
+
+body.light-mode .swipe-hint {
+  border-color: rgba(30,34,38,.12);
+  background: rgba(255,255,255,.72);
+  color: rgba(30,34,38,.68);
+}
+
+/* Theme icon/control gets the same quiet premium treatment. */
+body.light-mode .theme-toggle {
+  background: #ffffff;
+  border-color: rgba(30,34,38,.10);
+  color: #444a51;
+  box-shadow: 0 3px 12px rgba(35,39,44,.07);
+}
+
+body.light-mode .theme-toggle:hover {
+  background: #f5f6f4;
+  border-color: rgba(30,34,38,.18);
+}
